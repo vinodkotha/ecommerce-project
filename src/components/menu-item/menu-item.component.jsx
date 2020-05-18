@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import "./menu-item.styles.scss";
 
+//To access history, match in this child component reactouter gave withRouter to access them directly
 const MenuItem = ({ title, imageUrl, size, history, match, linkUrl }) => (
   <div
     className={`${size} menu-item`}
