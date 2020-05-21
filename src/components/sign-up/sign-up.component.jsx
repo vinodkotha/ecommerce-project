@@ -28,11 +28,12 @@ class SignIn extends React.Component {
       return;
     }
     try {
-      const { newUser } = await auth.createUserWithEmailAndPassword(
+      //user is fixed here we cannot keep different name
+      const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      await createUserProfileDocument(newUser, { displayName });
+      await createUserProfileDocument(user, { displayName });
 
       this.setState({
         displayName: "",
@@ -40,6 +41,7 @@ class SignIn extends React.Component {
         password: "",
         confirmPassword: "",
       });
+      alert("Sign Up successful");
     } catch (error) {
       console.log("error while createUserWithEmailAndPassword", error.message);
     }
