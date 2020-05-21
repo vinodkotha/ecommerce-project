@@ -5,7 +5,10 @@ import Header from "./components/header/header.component";
 import SignInPage from "./pages/signinpage/signinpage.component";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
-import { auth } from "./firebase/firebase-utils.component";
+import {
+  auth,
+  createUserProfileDocument,
+} from "./firebase/firebase-utils.component";
 
 class App extends React.Component {
   constructor() {
@@ -19,9 +22,21 @@ class App extends React.Component {
 
   componentDidMount() {
     //auth.onAuthStateChanged is a user signin state from firebase backend
-    this.unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
-      // console.log("user", user);
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userDocRefObj = createUserProfileDocument(userAuth); //create userDocument if not exists in firestore database
+        (await userDocRefObj).onSnapshot((snapshot) => {
+          this.setState(
+            { currentUser: { id: snapshot.id, ...snapshot.data() } },
+            () => {
+              console.log("state afte setting data", this.state);
+            }
+          );
+        });
+      } else {
+        this.setState({ currentUser: userAuth });
+        console.log("userAuth", userAuth);
+      }
     });
   }
 
