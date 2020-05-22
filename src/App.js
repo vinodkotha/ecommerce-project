@@ -5,7 +5,7 @@ import ShopPage from "./pages/shoppage/shoppage.component";
 import Header from "./components/header/header.component";
 import SignInPage from "./pages/signinpage/signinpage.component";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import {
   auth,
   createUserProfileDocument,
@@ -42,15 +42,25 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/signin" component={SignInPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.setCurrentUser ? <Redirect to="/" /> : <SignInPage />
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  setCurrentUser: state.userReducer.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUserData: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -32,11 +32,9 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.userReducer.currentUser,
-  };
-};
+const mapStateToProps = (state) => ({
+  currentUser: state.userReducer.currentUser,
+});
 
 export default connect(mapStateToProps)(Header);
 //connect is HOC
