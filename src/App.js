@@ -59,6 +59,11 @@ const mapStateToProps = (state) => ({
   setCurrentUser: state.userReducer.currentUser,
 });
 
+/////OR////
+// const mapStateToProps = ({ userReducer: { currentUser } }) => ({
+//   setCurrentUser: currentUser,
+// });
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUserData: (user) => dispatch(setCurrentUser(user)),
 });
