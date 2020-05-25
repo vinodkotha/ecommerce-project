@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shoppage/shoppage.component";
+import CheckOutPage from "./pages/checkoutpage/checkoutpage.component";
 import Header from "./components/header/header.component";
 import SignInPage from "./pages/signinpage/signinpage.component";
 import "./App.css";
@@ -43,7 +44,8 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckOutPage} />
           <Route
             exact
             path="/signin"
